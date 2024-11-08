@@ -22,6 +22,17 @@ def hello():
        print('Request for hello page received with no name or blank name -- redirecting')
        return redirect(url_for('index'))
 
+@app.route('/menu', methods=['POST'])
+def menu():
+   func = request.form.get('Function')
+
+   if func:
+       print('Request for menu page received with function=%s' % func)
+       return render_template('menu.html', name = func)
+   else:
+       print('Request for menu page received with no function or blank -- redirecting')
+       return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
    app.run()
