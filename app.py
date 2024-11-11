@@ -33,6 +33,16 @@ def menu():
        print('Request for menu page received with no proj or blank -- redirecting')
        return redirect(url_for('index'))
 
+@app.route('/function', methods=['POST'])
+def function():
+   tst = request.form.get('tst')
+
+   if tst:
+       print('Request for menu page received with tst=%s' % tst)
+       return render_template('function.html', name = tst)
+   else:
+       print('Request for menu page received with no tst or blank -- redirecting')
+       return redirect(url_for('index'))
 
 if __name__ == '__main__':
    app.run()
