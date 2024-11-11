@@ -24,13 +24,13 @@ def hello():
 
 @app.route('/menu', methods=['POST'])
 def menu():
-   func = request.form.get('Function')
+   func = request.form.get('proj')
 
    if func:
-       print('Request for menu page received with function=%s' % func)
+       print('Request for menu page received with proj=%s' % func)
        return render_template('menu.html', name = func)
    else:
-       print('Request for menu page received with no function or blank -- redirecting')
+       print('Request for menu page received with no proj or blank -- redirecting')
        return redirect(url_for('index'))
 
 
