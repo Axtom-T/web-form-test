@@ -2,7 +2,7 @@
 import os
 
 from flask import (Flask, redirect, render_template, request,
-                   send_from_directory, url_for)
+                   send_from_directory, url_for, session)
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def index():
 @app.route('/hello', methods=['POST'])
 def hello():
    name = request.form.get('name')
-
+   session['name'] = name
    if name:
        print('Request for hello page received with name=%s' % name)
        return render_template('hello.html', name = name)
@@ -26,7 +26,7 @@ def hello():
 @app.route('/menu', methods=['POST'])
 def menu():
    func = request.form.get('proj')
-   user = request.form.get('name')
+   user = session.get('name')
    if func:
        print('Request for menu page received with proj=%s' % func)
        return render_template('menu.html', name = func, user = user)
