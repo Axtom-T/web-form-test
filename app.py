@@ -5,7 +5,7 @@ from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, session)
 
 app = Flask(__name__)
-
+app.secret_key = 'placeholder'
 
 @app.route('/')
 def index():
