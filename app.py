@@ -1,3 +1,4 @@
+#TODO: fix routing to function.html
 import os
 
 from flask import (Flask, redirect, render_template, request,
@@ -25,10 +26,10 @@ def hello():
 @app.route('/menu', methods=['POST'])
 def menu():
    func = request.form.get('proj')
-
+   user = request.form.get('name')
    if func:
        print('Request for menu page received with proj=%s' % func)
-       return render_template('menu.html', name = func)
+       return render_template('menu.html', name = func, user = user)
    else:
        print('Request for menu page received with no proj or blank -- redirecting')
        return redirect(url_for('index'))
