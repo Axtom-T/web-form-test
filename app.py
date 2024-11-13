@@ -1,11 +1,17 @@
-#TODO: fix routing to function.html
 import os
 
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, session)
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = 'placeholder'
+
+app.config.update(
+    SQLALCHEMY_DATABASE_URI=app.config.get('DATABASE_URI'),
+    SQLALCHEMY_TRACK_MODIFICATIONS=False,
+)
+db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
