@@ -1,5 +1,5 @@
 import os
-
+from flask_migrate import Migrate
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, session)
 from flask_sqlalchemy import SQLAlchemy
@@ -7,11 +7,21 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = 'placeholder'
 
+if 'WEBSITE_HOSTNAME' not in os.environ:
+    # local development, where we'll use environment variables
+    print("Loading config.development and environment variables from .env file.")
+    app.config.from_object('azureproject.development')
+else:
+    # production
+    print("Loading config.production.")
+    app.config.from_object('azureproject.production')
+
 app.config.update(
     SQLALCHEMY_DATABASE_URI=app.config.get('DATABASE_URI'),
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
 )
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 @app.route('/')
 def index():
