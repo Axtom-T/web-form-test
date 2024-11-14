@@ -1,3 +1,4 @@
+#TODO: fix DB connection issue
 import os
 from flask_migrate import Migrate
 from flask import (Flask, redirect, render_template, request,
@@ -7,21 +8,14 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = 'placeholder'
 
-if 'WEBSITE_HOSTNAME' not in os.environ:
-    # local development, where we'll use environment variables
-    print("Loading config.development and environment variables from .env file.")
-    app.config.from_object('azureproject.development')
-else:
-    # production
-    print("Loading config.production.")
-    app.config.from_object('azureproject.production')
+db = SQLAlchemy()
 
-app.config.update(
-    SQLALCHEMY_DATABASE_URI=app.config.get('DATABASE_URI'),
-    SQLALCHEMY_TRACK_MODIFICATIONS=False,
-)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+app.config['SQLALCHEMY_DATABASE_URI'] = '''Server=tcp:db-tst.database.windows.net,1433;Initial Catalog=db_tst;Encrypt=True;
+TrustServerCertificate=False;Connection Timeout=30;Authentication="Active Directory Default";'''
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
 
 @app.route('/')
 def index():
