@@ -33,7 +33,7 @@ def index():
     devices = db.session.execute(db.select(Devices)).scalars().all()
     device_txt = '<ul>'
     for i in devices:
-        device_txt += '<li>' + i.id + ', ' + i.description + '</li>'
+        device_txt += '<li>' + str(i.id) + ', ' + i.description + '</li>'
     device_txt += '</ul>'
     return device_txt
    except Exception as e:
