@@ -20,10 +20,21 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+class Devices(db.Model):
+    __tablename__ = 'dbo.devices'
+    id = db.Column(db.Integer)
+    description = db.Column(db.String)
+
 @app.route('/')
 def index():
    print('Request for index page received')
-   return render_template('index.html')
+   #return render_template('index.html')
+   devices = db.session.execute(db.select(Devices)).schalars()
+   device_txt = '<ul>'
+   for i in devices:
+    device_txt += '<li>' + i.id + ', ' + 'i.description' + '</li>'
+   device_txt += '</ul>'
+   return device_txt
 
 @app.route('/hello', methods=['POST'])
 def hello():
