@@ -30,7 +30,7 @@ def index():
    print('Request for index page received')
    #return render_template('index.html')
    try:
-    devices = db.session.execute(db.select(Devices)).schalars().all()
+    devices = db.session.execute(db.select(Devices)).scalars().all()
     device_txt = '<ul>'
     for i in devices:
         device_txt += '<li>' + i.id + ', ' + i.description + '</li>'
