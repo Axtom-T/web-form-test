@@ -4,18 +4,21 @@ from flask_migrate import Migrate
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, session)
 from flask_sqlalchemy import SQLAlchemy
+import pyodbc
 
 app = Flask(__name__)
 app.secret_key = 'placeholder'
 
-db = SQLAlchemy()
+server = os.getenv('AZURE_SQL_SERVER')
+database = os.getenv('AZURE_SQL_DATABASE')
+username = os.getenv('AZURE_SQL_DB_USER')
+password = os.getenv('AZURE_SQL_DB_PASSWORD')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = '''Server=tcp:db-tst.database.windows.net,1433;Initial Catalog=db_tst;Encrypt=True;
-TrustServerCertificate=False;Connection Timeout=30;Authentication="Active Directory Default";'''
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mssql+pyodbc://{username}:{password}@{server}/{database}?driver=ODBC+Driver+17+for+SQL+Server'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db.init_app(app)
+db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
