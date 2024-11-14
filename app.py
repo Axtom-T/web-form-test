@@ -21,7 +21,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Devices(db.Model):
-    __tablename__ = 'dbo.devices'
+    __tablename__ = '[dbo].[devices]'
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String)
 
