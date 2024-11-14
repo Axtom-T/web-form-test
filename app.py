@@ -22,19 +22,24 @@ db = SQLAlchemy(app)
 
 class Devices(db.Model):
     __tablename__ = 'dbo.devices'
-    id = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String)
 
 @app.route('/')
 def index():
    print('Request for index page received')
    #return render_template('index.html')
-   devices = db.session.execute(db.select(Devices)).schalars()
-   device_txt = '<ul>'
-   for i in devices:
-    device_txt += '<li>' + i.id + ', ' + 'i.description' + '</li>'
-   device_txt += '</ul>'
-   return device_txt
+   try:
+    devices = db.session.execute(db.select(Devices)).schalars().all()
+    device_txt = '<ul>'
+    for i in devices:
+        device_txt += '<li>' + i.id + ', ' + i.description + '</li>'
+    device_txt += '</ul>'
+    return device_txt
+   except Exception as e:
+    error_text = "<p>The error:<br>" + str(e) + "</p>"
+    return error_text
+
 
 @app.route('/hello', methods=['POST'])
 def hello():
