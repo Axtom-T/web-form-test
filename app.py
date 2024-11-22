@@ -1,4 +1,5 @@
-#TODO: fix DB connection issue
+#TODO: put DB outputs into templates and display properly
+#https://github.com/Axtom-T/Bright_Backer/blob/main/backend/views/donation_history.tpl
 import os
 from flask_migrate import Migrate
 from flask import (Flask, redirect, render_template, request,
@@ -28,14 +29,9 @@ class Devices(db.Model):
 @app.route('/')
 def index():
    print('Request for index page received')
-   #return render_template('index.html')
    try:
     devices = db.session.execute(db.select(Devices)).scalars().all()
-    device_txt = '<ul>'
-    for i in devices:
-        device_txt += '<li>' + str(i.id) + ', ' + i.description + '</li>'
-    device_txt += '</ul>'
-    return device_txt
+    return render_template('index.html', devices=devices)
    except Exception as e:
     error_text = "<p>The error:<br>" + str(e) + "</p>"
     return error_text
