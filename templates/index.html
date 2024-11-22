@@ -22,6 +22,10 @@
                 </div>            
             </div>
         </form>
+        <ul>
+          {% for i in devices %}
+          <li>str(i.id) +', ' + i.description</li>
+        </ul>
      </main>      
    </body>
 </html>
