@@ -38,7 +38,7 @@ class Devices(db.Model):
     project_number = db.Column(db.Integer)
 
 class CCTV_SIAT_results(db.Model):
-    __tablename__ = 'devices'
+    __tablename__ = 'CCTV_SIAT_results'
     test_id = db.Column(db.Integer, primary_key=True)
     asset_id = db.Column(db.Integer)
     test_date = db.Column(db.DateTime)
