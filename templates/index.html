@@ -24,7 +24,7 @@
         </form>
         <ul>
           {% for i in devices %}
-          <li>{{i.id|string +', ' + i.description}}</li>
+          <li>{{i.id|string +', ' + i.description +', ' + i.type +', ' + i.latitude +', ' + i.longitude +', ' + i.project_number}}</li>
           {% endfor %}
         </ul>
      </main>      
