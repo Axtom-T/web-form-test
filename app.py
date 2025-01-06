@@ -1,4 +1,6 @@
-#TODO: insert values for new tables and test displays
+#TODO: implement actual routing according to design
+#display db elements with CSS
+#write to db functionality
 import os
 from flask_migrate import Migrate
 from flask import (Flask, redirect, render_template, request,
@@ -63,10 +65,8 @@ class CCTV_SIAT_results(db.Model):
 
 @app.route('/')
 def index():
-   print('Request for index page received')
    try:
-    devices = db.session.execute(db.select(Devices)).scalars().all()
-    return render_template('index.html', devices=devices)
+    return render_template('index.html')
    except Exception as e:
     error_text = "<p>The error:<br>" + str(e) + "</p>"
     return error_text
@@ -74,36 +74,54 @@ def index():
 
 @app.route('/hello', methods=['POST'])
 def hello():
-   name = request.form.get('name')
-   session['name'] = name
-   if name:
-       print('Request for hello page received with name=%s' % name)
-       return render_template('hello.html', name = name)
-   else:
-       print('Request for hello page received with no name or blank name -- redirecting')
-       return redirect(url_for('index'))
+   try:
+    name = request.form.get('name')
+    session['name'] = name
+    if name:
+        return render_template('hello.html', template_name = name)
+    else:
+        return redirect(url_for('index'))
+   except Exception as e:
+    error_text = "<p>The error:<br>" + str(e) + "</p>"
+    return error_text
 
 @app.route('/menu', methods=['POST'])
 def menu():
-   func = request.form.get('proj')
-   user = session.get('name')
-   if func:
-       print('Request for menu page received with proj=%s' % func)
-       return render_template('menu.html', name = func, user = user)
-   else:
-       print('Request for menu page received with no proj or blank -- redirecting')
-       return redirect(url_for('index'))
+   try:
+    project = request.form.get('proj')
+    session['proj'] = project
+    user = session.get('name')
+    if project:
+        return render_template('menu.html', template_project = project, template_user = user)
+    else:
+        return redirect(url_for('index'))
+   except Exception as e:
+    error_text = "<p>The error:<br>" + str(e) + "</p>"
+    return error_text
 
 @app.route('/function', methods=['POST'])
 def function():
-   tst = request.form.get('tst')
+   try:
+    user = session.get('name')
+    project = session.get('proj')
+    func = request.form.get('form_function')
+    if func:
+        return render_template('function.html', template_function = func,template_project = project, template_user = user)
+    else:
+        return redirect(url_for('index'))
+   except Exception as e:
+    error_text = "<p>The error:<br>" + str(e) + "</p>"
+    return error_text
 
-   if tst:
-       print('Request for menu page received with tst=%s' % tst)
-       return render_template('function.html', name = tst)
-   else:
-       print('Request for menu page received with no tst or blank -- redirecting')
-       return redirect(url_for('index'))
+@app.route('/display_tables')
+def display_tables():
+    try:
+        devices = db.session.execute(db.select(Devices)).scalars().all()
+        cctv_siat = db.session.execute(db.select(CCTV_SIAT_results)).scalars().all()
+        return render_template('display_tables.html', template_devices = devices, template_cctv_siat = cctv_siat)
+    except Exception as e:
+        error_text = "<p>The error:<br>" + str(e) + "</p>"
+        return error_text
 
 if __name__ == '__main__':
    app.run()
