@@ -63,7 +63,7 @@ class CCTV_SIAT_results(db.Model):
     record_diagnostics = db.Column(db.Boolean)
     SIAT_pass = db.Column(db.String)
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def index():
    try:
     return render_template('index.html')
