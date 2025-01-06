@@ -1,0 +1,28 @@
+<!doctype html>
+<head>
+    <title>MRWA Test Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+</head>
+<html>
+   <body>
+     <main>
+        <div class="px-4 py-3 my-2 text-center">
+            <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/MRWA JPG.JPG') }}" alt="Main Roads Logo" width="681" height="172"/>
+            <h1 class="display-6 fw-bold">Data List</h1>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
+          </div>
+          <h1 class="display-6 fw-bold">Devices</h1>
+        <ul>
+          {% for i in template_devices %}
+          <li>{{i.id|string +', ' + i.description +', ' + i.type +', ' + i.latitude|string +', ' + i.longitude|string +', ' + i.project_number|string}}</li>
+          {% endfor %}
+        </ul>
+        <h1 class="display-6 fw-bold">CCTV SIAT</h1>
+        <ul>
+          {% for i in template_cctv_siat %}
+          <li>{{i.id|string +', ' + i.description +', ' + i.type +', ' + i.latitude|string +', ' + i.longitude|string +', ' + i.project_number|string}}</li>
+          {% endfor %}
+        </ul>
+     </main>      
+   </body>
+</html>

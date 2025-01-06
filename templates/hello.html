@@ -8,8 +8,7 @@
      <main>
         <div class="px-4 py-3 my-2 text-center">
             <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/MRWA JPG.JPG') }}" alt="Main Roads Logo" width="681" height="172"/>
-            <!-- <img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-            <h1 class="display-6 fw-bold">Hello {{name}}</h1>
+            <h1 class="display-6 fw-bold">Hello {{template_name}}</h1>
             <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
           </div>
           <form method="post" action="{{url_for('menu')}}">
@@ -23,6 +22,11 @@
                 </div>            
             </div>
         </form>
+        <!-- <ul>
+          {% for i in devices %}
+          <li>{{i.id|string +', ' + i.description +', ' + i.type +', ' + i.latitude|string +', ' + i.longitude|string +', ' + i.project_number|string}}</li>
+          {% endfor %}
+        </ul> -->
      </main>      
    </body>
 </html>
