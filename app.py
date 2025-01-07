@@ -99,16 +99,22 @@ def menu():
     error_text = "<p>The error:<br>" + str(e) + "</p>"
     return error_text
 
-@app.route('/function', methods=['POST'])
-def function():
+@app.route('/testing', methods=['POST'])
+def testing():
    try:
     user = session.get('name')
     project = session.get('proj')
-    func = request.form.get('form_function')
-    if func:
-        return render_template('function.html', template_function = func,template_project = project, template_user = user)
-    else:
-        return redirect(url_for('index'))
+    return render_template('testing.html',template_project = project, template_user = user)
+   except Exception as e:
+    error_text = "<p>The error:<br>" + str(e) + "</p>"
+    return error_text
+
+@app.route('/scheduling', methods=['POST'])
+def scheduling():
+   try:
+    user = session.get('name')
+    project = session.get('proj')
+    return render_template('scheduling.html', template_user = user, template_project = project)
    except Exception as e:
     error_text = "<p>The error:<br>" + str(e) + "</p>"
     return error_text
