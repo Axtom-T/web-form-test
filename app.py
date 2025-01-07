@@ -119,7 +119,19 @@ def scheduling():
     error_text = "<p>The error:<br>" + str(e) + "</p>"
     return error_text
 
-@app.route('/display_tables')
+@app.route('/stage', methods=['POST'])
+def scheduling():
+   try:
+    user = session.get('name')
+    project = session.get('proj')
+    device = request.form.get('device')
+    session['device'] = device
+    return render_template('stage.html', template_user = user, template_project = project, template_device = device)
+   except Exception as e:
+    error_text = "<p>The error:<br>" + str(e) + "</p>"
+    return error_text
+
+@app.route('/display_tables',methods=['GET', 'POST'])
 def display_tables():
     try:
         devices = db.session.execute(db.select(Devices)).scalars().all()
