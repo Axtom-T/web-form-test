@@ -63,6 +63,31 @@ class CCTV_SIAT_results(db.Model):
     record_diagnostics = db.Column(db.Boolean)
     SIAT_pass = db.Column(db.String)
 
+    def __init__(self, test_id, asset_id, test_date, pingable, ping_latency_expected, ping, web_access, FLIR_discover, video_settings,\
+                 focus, clean_display, picture_quality, PTZ_function, PTZ_privacy, washer, preset, recording, webcam_position,\
+                 firmware_version, record_diagnostics, SIAT_pass):
+      self.test_id = test_id
+      self.asset_id = asset_id
+      self.test_date = test_date
+      self.pingable = pingable
+      self.ping_latency_expected = ping_latency_expected
+      self.ping = ping
+      self.web_access = web_access
+      self.FLIR_discover = FLIR_discover
+      self.video_settings = video_settings
+      self.focus = focus
+      self.clean_display = clean_display
+      self.picture_quality = picture_quality
+      self.PTZ_function = PTZ_function
+      self.PTZ_privacy = PTZ_privacy
+      self.washer = washer
+      self.preset = preset
+      self.recording = recording
+      self.webcam_position = webcam_position
+      self.firmware_version = firmware_version
+      self.record_diagnostics = record_diagnostics
+      self.SIAT_pass = SIAT_pass
+
 @app.route('/')
 def index():
    try:
@@ -130,6 +155,52 @@ def stage():
    except Exception as e:
     error_text = "<p>The error:<br>" + str(e) + "</p>"
     return error_text
+
+@app.route('/CCTV_SIAT', methods=['POST'])
+def CCTV_SIAT():
+   try:
+    user = session.get('name')
+    project = session.get('proj')
+    device = session.get('device')
+    return render_template('CCTV_SIAT.html', template_user = user, template_project = project, template_device = device)
+   except Exception as e:
+    error_text = "<p>The error:<br>" + str(e) + "</p>"
+    return error_text
+
+@app.route('/add_record_CCTV_SIAT', methods = ['GET','POST'])
+def add_record_CCTV_SIAT():
+    try:
+        test_id = request.form.get('test_id')
+        asset_id = session.get('device')
+        test_date = request.form.get('test_date')
+        pingable = request.form.get('pingable')
+        ping_latency_expected = request.form.get('ping_latency_expected')
+        ping = request.form.get('ping')
+        web_access = request.form.get('web_access')
+        FLIR_discover = request.form.get('FLIR_discover')
+        video_settings = request.form.get('video_settings')
+        focus = request.form.get('focus')
+        clean_display = request.form.get('clean_display')
+        picture_quality = request.form.get('picture_quality')
+        PTZ_function = request.form.get('PTZ_function')
+        PTZ_privacy = request.form.get('PTZ_privacy')
+        washer = request.form.get('washer')
+        preset = request.form.get('preset')
+        recording = request.form.get('recording')
+        webcam_position = request.form.get('webcam_position')
+        firmware_version = request.form.get('firmware_version')
+        record_diagnostics = request.form.get('record_diagnostics')
+        SIAT_pass = request.form.get('SIAT_pass')
+        record = CCTV_SIAT_results(test_id,asset_id,test_date,pingable,ping_latency_expected,ping,web_access,FLIR_discover,video_settings,\
+                                    focus,clean_display,picture_quality,PTZ_function,PTZ_privacy,washer,preset,recording,webcam_position,\
+                                    firmware_version,record_diagnostics,SIAT_pass)
+        db.session.add(record)
+        db.session.commit()
+        msg = f"Data for device {asset_id} added"
+        return render_template("add_record_CCTV_SIAT.html", template_msg = msg)
+    except Exception as e:
+        error_text = "<p>The error:<br>" + str(e) + "</p>"
+        return error_text   
 
 @app.route('/display_tables',methods=['GET', 'POST'])
 def display_tables():
