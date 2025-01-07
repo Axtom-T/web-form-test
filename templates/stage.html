@@ -14,15 +14,17 @@
             <h1 class="display-6 fw-bold">Device: {{template_device}}</h1>
             <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
           </div>
-          <form method="post" action="{{url_for('index')}}">
+          <form method="post">
             <div class="col-md-6 mx-auto text-center">
-                <label for="device" class="form-label fw-bold fs-5">Stage:</label>
+                <label for="form_function" class="form-label fw-bold fs-5">Stage:</label>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-                    <input type="text" class="form-control" id="device" name="device" style="max-width: 256px;">
-                  </div>            
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
-                  <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Submit</button>
-                </div>            
+                  <button type="submit" formaction="{{ url_for('CCTV_SIAT') }}" class="btn btn-outline-primary btn-lg px-4 gap-3">FAT</button>
+                  <button type="submit" formaction="{{ url_for('CCTV_SIAT') }}" class="btn btn-outline-primary btn-lg px-4 gap-3">SAT</button>
+                  <button type="submit" formaction="{{ url_for('CCTV_SIAT') }}" class="btn btn-outline-primary btn-lg px-4 gap-3">NIT</button>
+                  <button type="submit" formaction="{{ url_for('CCTV_SIAT') }}" class="btn btn-outline-primary btn-lg px-4 gap-3">SIAT</button>
+                  <button type="submit" formaction="{{ url_for('CCTV_SIAT') }}" class="btn btn-outline-primary btn-lg px-4 gap-3">FST</button>
+                  </div>
+                  <input type="hidden" id="form_function" name="form_function" value="">     
             </div>
         </form>
      </main>      
