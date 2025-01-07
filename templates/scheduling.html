@@ -11,17 +11,20 @@
             <!-- <img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
             <h1 class="display-6 fw-bold">User: {{template_user}}</h1>
             <h1 class="display-6 fw-bold">Project Name: {{template_project}}</h1>
+            <h1 class="display-6 fw-bold">Testing</h1>
             <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
           </div>
-          <form method="post">
+          <form method="post" action="{{url_for('index')}}">
             <div class="col-md-6 mx-auto text-center">
-                <label for="form_function" class="form-label fw-bold fs-5">Function:</label>
+                <label for="device" class="form-label fw-bold fs-5">Device:</label>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-                  <button type="submit" formaction="{{ url_for('function') }}" class="btn btn-outline-primary btn-lg px-4 gap-3">Testing</button>
-                  <button type="submit" formaction="{{ url_for('scheduling') }}" class="btn btn-outline-primary btn-lg px-4 gap-3">Scheduling</button>
-                  <button type="submit" formaction="{{ url_for('display_tables') }}" class="btn btn-outline-primary btn-lg px-4 gap-3">Review Test Data</button>
+                    <input type="text" class="form-control" id="device" name="device" style="max-width: 256px;">
                   </div>
-                  <input type="hidden" id="form_function" name="form_function" value="">            
+                  <div class="col-md-6 mx-auto text-center">
+                    <label for="device" class="form-label fw-bold fs-5">Type:</label>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+                        <input type="text" class="form-control" id="device" name="device" style="max-width: 256px;">
+                      </div>              
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
                   <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Submit</button>
                 </div>            
