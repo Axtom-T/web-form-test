@@ -120,7 +120,7 @@ def scheduling():
     return error_text
 
 @app.route('/stage', methods=['POST'])
-def scheduling():
+def stage():
    try:
     user = session.get('name')
     project = session.get('proj')
