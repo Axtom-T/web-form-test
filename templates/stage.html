@@ -11,12 +11,12 @@
             <!-- <img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
             <h1 class="display-6 fw-bold">User: {{template_user}}</h1>
             <h1 class="display-6 fw-bold">Project Name: {{template_project}}</h1>
-            <h1 class="display-6 fw-bold">Testing</h1>
+            <h1 class="display-6 fw-bold">Device: {{template_device}}</h1>
             <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
           </div>
-          <form method="post" action="{{url_for('stage')}}">
+          <form method="post" action="{{url_for('index')}}">
             <div class="col-md-6 mx-auto text-center">
-                <label for="device" class="form-label fw-bold fs-5">Device:</label>
+                <label for="device" class="form-label fw-bold fs-5">Stage:</label>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
                     <input type="text" class="form-control" id="device" name="device" style="max-width: 256px;">
                   </div>            
