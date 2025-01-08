@@ -63,10 +63,9 @@ class CCTV_SIAT_results(db.Model):
     record_diagnostics = db.Column(db.String)
     SIAT_pass = db.Column(db.String)
 
-    def __init__(self, test_id, asset_id, test_date, pingable, ping_latency_expected, ping, web_access, FLIR_discover, video_settings,\
+    def __init__(self, asset_id, test_date, pingable, ping_latency_expected, ping, web_access, FLIR_discover, video_settings,\
                  focus, clean_display, picture_quality, PTZ_function, PTZ_privacy, washer, preset, recording, webcam_position,\
                  firmware_version, record_diagnostics, SIAT_pass):
-      self.test_id = test_id
       self.asset_id = asset_id
       self.test_date = test_date
       self.pingable = pingable
@@ -170,7 +169,6 @@ def CCTV_SIAT():
 @app.route('/add_record_CCTV_SIAT', methods = ['GET','POST'])
 def add_record_CCTV_SIAT():
     try:
-        test_id = request.form.get('test_id')
         asset_id = session.get('device')
         test_date = request.form.get('test_date')
         pingable = request.form.get('pingable')
@@ -191,7 +189,7 @@ def add_record_CCTV_SIAT():
         firmware_version = request.form.get('firmware_version')
         record_diagnostics = request.form.get('record_diagnostics')
         SIAT_pass = request.form.get('SIAT_pass')
-        record = CCTV_SIAT_results(test_id,asset_id,test_date,pingable,ping_latency_expected,ping,web_access,FLIR_discover,video_settings,\
+        record = CCTV_SIAT_results(asset_id,test_date,pingable,ping_latency_expected,ping,web_access,FLIR_discover,video_settings,\
                                     focus,clean_display,picture_quality,PTZ_function,PTZ_privacy,washer,preset,recording,webcam_position,\
                                     firmware_version,record_diagnostics,SIAT_pass)
         db.session.add(record)
