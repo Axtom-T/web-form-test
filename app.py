@@ -7,6 +7,7 @@ from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, session)
 from flask_sqlalchemy import SQLAlchemy
 import pyodbc
+from datetime import date
 
 app = Flask(__name__)
 app.secret_key = 'placeholder'
@@ -43,7 +44,7 @@ class CCTV_SIAT_results(db.Model):
     __tablename__ = 'CCTV_SIAT_results'
     test_id = db.Column(db.Integer, primary_key=True)
     asset_id = db.Column(db.Integer)
-    test_date = db.Column(db.String)
+    test_date = db.Column(db.DateTime)
     pingable = db.Column(db.String)
     ping_latency_expected = db.Column(db.String)
     ping = db.Column(db.Integer)
@@ -86,6 +87,13 @@ class CCTV_SIAT_results(db.Model):
       self.firmware_version = firmware_version
       self.record_diagnostics = record_diagnostics
       self.SIAT_pass = SIAT_pass
+
+def stringdate():
+    today = date.today()
+    date_list = str(today).split('-')
+    # build string in format 01-01-2000
+    date_string = date_list[1] + "-" + date_list[2] + "-" + date_list[0]
+    return date_string
 
 @app.route('/')
 def index():
@@ -170,7 +178,7 @@ def CCTV_SIAT():
 def add_record_CCTV_SIAT():
     try:
         asset_id = session.get('device')
-        test_date = request.form.get('test_date')
+        test_date = stringdate()
         pingable = request.form.get('pingable')
         ping_latency_expected = request.form.get('ping_latency_expected')
         ping = request.form.get('ping')
