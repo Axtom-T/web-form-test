@@ -42,7 +42,7 @@ class Devices(db.Model):
 
 class CCTV_SIAT_results(db.Model):
     __tablename__ = 'CCTV_SIAT_results'
-    test_id = db.Column(db.Integer, primary_key=True)
+    test_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     asset_id = db.Column(db.Integer)
     test_date = db.Column(db.DateTime)
     pingable = db.Column(db.String)
