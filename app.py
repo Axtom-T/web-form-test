@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, session)
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
 import pyodbc
 from datetime import date
 from flask_wtf import FlaskForm
