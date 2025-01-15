@@ -232,7 +232,7 @@ def add_record_CCTV_SIAT():
             msg = f"Data for device {asset_id} added"
             return render_template("add_record_CCTV_SIAT.html", template_msg = msg)
         else:
-           return render_template("add_record_CCTV_SIAT.html", template_form = form1)
+           return render_template("CCTV_SIAT.html", template_form = form1)
     except Exception as e:
         error_text = "<p>The error:<br>" + str(e) + "</p>"
         return error_text   
