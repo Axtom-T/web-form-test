@@ -200,6 +200,7 @@ def add_record_CCTV_SIAT():
         record = CCTV_SIAT_results(asset_id,test_date,pingable,ping_latency_expected,ping,web_access,FLIR_discover,video_settings,\
                                     focus,clean_display,picture_quality,PTZ_function,PTZ_privacy,washer,preset,recording,webcam_position,\
                                     firmware_version,record_diagnostics,SIAT_pass)
+        db.create_all()
         db.session.add(record)
         db.session.commit()
         msg = f"Data for device {asset_id} added"
