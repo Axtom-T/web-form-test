@@ -2,7 +2,4 @@ Flask
 Flask-Migrate
 Flask-SQLAlchemy
 SQLAlchemy
-bootstrap-flask
 pyodbc
-flask_wtf
-wtforms

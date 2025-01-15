@@ -6,11 +6,8 @@ from flask_migrate import Migrate
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, session)
 from flask_sqlalchemy import SQLAlchemy
-from flask_bootstrap import Bootstrap
 import pyodbc
 from datetime import date
-from flask_wtf import FlaskForm
-from wtforms import SubmitField, SelectField, RadioField, HiddenField, StringField, IntegerField, FloatField, DateField
 
 app = Flask(__name__)
 app.secret_key = 'placeholder'
@@ -45,7 +42,7 @@ class Devices(db.Model):
 
 class CCTV_SIAT_results(db.Model):
     __tablename__ = 'CCTV_SIAT_results'
-    test_id = db.Column(db.Integer, primary_key=True)
+    test_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     asset_id = db.Column(db.Integer)
     test_date = db.Column(db.DateTime)
     pingable = db.Column(db.String)
@@ -90,29 +87,6 @@ class CCTV_SIAT_results(db.Model):
       self.firmware_version = firmware_version
       self.record_diagnostics = record_diagnostics
       self.SIAT_pass = SIAT_pass
-
-class AddCCTVSIAT(FlaskForm):
-   id_field = HiddenField()
-   test_date = HiddenField()
-   pingable = StringField()
-   ping_latency_expected = StringField()
-   ping = IntegerField()
-   web_access = StringField()
-   FLIR_discover = StringField()
-   video_settings = StringField()
-   focus = StringField()
-   clean_display = StringField()
-   picture_quality = StringField()
-   PTZ_function = StringField()
-   PTZ_privacy = StringField()
-   washer = StringField()
-   preset = StringField()
-   recording = StringField()
-   webcam_position = StringField()
-   firmware_version = StringField()
-   record_diagnostics = StringField()
-   SIAT_pass = StringField()
-   submit = SubmitField('Submit')
 
 def stringdate():
     today = date.today()
@@ -203,37 +177,33 @@ def CCTV_SIAT():
 @app.route('/add_record_CCTV_SIAT', methods = ['GET','POST'])
 def add_record_CCTV_SIAT():
     try:
-        form1 = AddCCTVSIAT()
-        if form1.validate_on_submit():
-            asset_id = session.get('device')
-            test_date = stringdate()
-            pingable = request.form['pingable']
-            ping_latency_expected = request.form['ping_latency_expected']
-            ping = request.form['ping']
-            web_access = request.form['web_access']
-            FLIR_discover = request.form['FLIR_discover']
-            video_settings = request.form['video_settings']
-            focus = request.form['focus']
-            clean_display = request.form['clean_display']
-            picture_quality = request.form['picture_quality']
-            PTZ_function = request.form['PTZ_function']
-            PTZ_privacy = request.form['PTZ_privacy']
-            washer = request.form['washer']
-            preset = request.form['preset']
-            recording = request.form['recording']
-            webcam_position = request.form['webcam_position']
-            firmware_version = request.form['firmware_version']
-            record_diagnostics = request.form['record_diagnostics']
-            SIAT_pass = request.form['SIAT_pass']
-            record = CCTV_SIAT_results(asset_id,test_date,pingable,ping_latency_expected,ping,web_access,FLIR_discover,video_settings,\
-                                        focus,clean_display,picture_quality,PTZ_function,PTZ_privacy,washer,preset,recording,webcam_position,\
-                                        firmware_version,record_diagnostics,SIAT_pass)
-            db.session.add(record)
-            db.session.commit()
-            msg = f"Data for device {asset_id} added"
-            return render_template("add_record_CCTV_SIAT.html", template_msg = msg)
-        else:
-           return render_template("CCTV_SIAT.html", template_form = form1)
+        asset_id = session.get('device')
+        test_date = stringdate()
+        pingable = request.form.get('pingable')
+        ping_latency_expected = request.form.get('ping_latency_expected')
+        ping = request.form.get('ping')
+        web_access = request.form.get('web_access')
+        FLIR_discover = request.form.get('FLIR_discover')
+        video_settings = request.form.get('video_settings')
+        focus = request.form.get('focus')
+        clean_display = request.form.get('clean_display')
+        picture_quality = request.form.get('picture_quality')
+        PTZ_function = request.form.get('PTZ_function')
+        PTZ_privacy = request.form.get('PTZ_privacy')
+        washer = request.form.get('washer')
+        preset = request.form.get('preset')
+        recording = request.form.get('recording')
+        webcam_position = request.form.get('webcam_position')
+        firmware_version = request.form.get('firmware_version')
+        record_diagnostics = request.form.get('record_diagnostics')
+        SIAT_pass = request.form.get('SIAT_pass')
+        record = CCTV_SIAT_results(asset_id,test_date,pingable,ping_latency_expected,ping,web_access,FLIR_discover,video_settings,\
+                                    focus,clean_display,picture_quality,PTZ_function,PTZ_privacy,washer,preset,recording,webcam_position,\
+                                    firmware_version,record_diagnostics,SIAT_pass)
+        db.session.add(record)
+        db.session.commit()
+        msg = f"Data for device {asset_id} added"
+        return render_template("add_record_CCTV_SIAT.html", template_msg = msg)
     except Exception as e:
         error_text = "<p>The error:<br>" + str(e) + "</p>"
         return error_text   
