@@ -3,3 +3,5 @@ Flask-Migrate
 Flask-SQLAlchemy
 SQLAlchemy
 pyodbc
+flask_wtf
+wtforms
