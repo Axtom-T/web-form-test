@@ -8,6 +8,7 @@ from flask import (Flask, redirect, render_template, request,
 from flask_sqlalchemy import SQLAlchemy
 import pyodbc
 from datetime import date
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'placeholder'
@@ -42,7 +43,7 @@ class Devices(db.Model):
 
 class CCTV_SIAT_results(db.Model):
     __tablename__ = 'CCTV_SIAT_results'
-    test_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    test_id = db.Column(db.String, primary_key=True)
     asset_id = db.Column(db.Integer)
     test_date = db.Column(db.DateTime)
     pingable = db.Column(db.String)
@@ -64,9 +65,10 @@ class CCTV_SIAT_results(db.Model):
     record_diagnostics = db.Column(db.String)
     SIAT_pass = db.Column(db.String)
 
-    def __init__(self, asset_id, test_date, pingable, ping_latency_expected, ping, web_access, FLIR_discover, video_settings,\
+    def __init__(self, test_id, asset_id, test_date, pingable, ping_latency_expected, ping, web_access, FLIR_discover, video_settings,\
                  focus, clean_display, picture_quality, PTZ_function, PTZ_privacy, washer, preset, recording, webcam_position,\
                  firmware_version, record_diagnostics, SIAT_pass):
+      self.test_id = test_id
       self.asset_id = asset_id
       self.test_date = test_date
       self.pingable = pingable
@@ -89,11 +91,10 @@ class CCTV_SIAT_results(db.Model):
       self.SIAT_pass = SIAT_pass
 
 def stringdate():
-    today = date.today()
-    date_list = str(today).split('-')
-    # build string in format 01-01-2000
-    date_string = date_list[1] + "-" + date_list[2] + "-" + date_list[0]
-    return date_string
+    now = datetime.now()
+    # Format the datetime as "MM-DD-YYYY HH:MM:SS"
+    date_time_string = now.strftime("%m-%d-%Y %H:%M:%S")
+    return date_time_string
 
 @app.route('/')
 def index():
@@ -179,6 +180,7 @@ def add_record_CCTV_SIAT():
     try:
         asset_id = session.get('device')
         test_date = stringdate()
+        test_id = asset_id + test_date
         pingable = request.form.get('pingable')
         ping_latency_expected = request.form.get('ping_latency_expected')
         ping = request.form.get('ping')
@@ -197,10 +199,9 @@ def add_record_CCTV_SIAT():
         firmware_version = request.form.get('firmware_version')
         record_diagnostics = request.form.get('record_diagnostics')
         SIAT_pass = request.form.get('SIAT_pass')
-        record = CCTV_SIAT_results(asset_id,test_date,pingable,ping_latency_expected,ping,web_access,FLIR_discover,video_settings,\
+        record = CCTV_SIAT_results(test_id,asset_id,test_date,pingable,ping_latency_expected,ping,web_access,FLIR_discover,video_settings,\
                                     focus,clean_display,picture_quality,PTZ_function,PTZ_privacy,washer,preset,recording,webcam_position,\
                                     firmware_version,record_diagnostics,SIAT_pass)
-        db.create_all()
         db.session.add(record)
         db.session.commit()
         msg = f"Data for device {asset_id} added"
