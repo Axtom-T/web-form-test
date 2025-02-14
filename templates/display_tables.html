@@ -22,7 +22,7 @@
         <ul>
           {% for i in template_cctv_siat %}
           <li>{{i.test_id +', ' + i.asset_id|string +', ' + i.test_date +
-            ', ' + i.pingable +', ' + i.ping_latency_expected +', ' + i.ping|string', '
+            ', ' + i.pingable +', ' + i.ping_latency_expected +', ' + i.ping|string + ', '
             + i.web_access +',' + i.FLIR_discover +',' + i.video_setting +',' + i.focus +', '
             + i.clean_display +',' + i.picture_quality +',' + i.PTZ_function +',' + i.PTZ_privacy +', '
             + i.washer +',' + i.preset +',' + i.recording +',' + i.webcam_position +
