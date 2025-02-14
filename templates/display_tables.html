@@ -21,22 +21,55 @@
           {% endfor %}
         </ul>
         <h1 class="display-6 fw-bold text-left">CCTV SIAT</h1>
-        <p>Test ID, Asset ID, Test Date, Pingable, Ping Latecy Expected, Ping (ms), Web Access, FLIR Discoverable, 
-          Video Settings, Focus, Clean Display, Picture Quality, PTZ Function, PTZ Privacy, Washer, Preset, Recording, 
-          Webcam Position, Firmware Version, Record Diagnostics, SIAT Pass
-        </p>
-        <ul>
+        <table>
+          <tr>
+            <th>Test ID</th>
+            <th>Asset ID</th>
+            <th>Test Date</th>
+            <th>Pingable</th>
+            <th>Ping Latecy Expected</th>
+            <th>Ping (ms)</th>
+            <th>FLIR Discoverable</th>
+            <th>Video Settings</th>
+            <th>Focus</th>
+            <th>Clean Display</th>
+            <th>Picture Quality</th>
+            <th>PTZ Function</th>
+            <th>PTZ Privacy</th>
+            <th>Washer</th>
+            <th>Preset</th>
+            <th>Recording</th>
+            <th>Webcam Position</th>
+            <th>Firmware Version</th>
+            <th>Record Diagnostics</th>
+            <th>SIAT Pass</th>
+          </tr>
+          <tr>
           {% for i in template_cctv_siat %}
-          <li>{{ ", ".join([
-            i.test_id, i.asset_id|string, i.test_date,
-            i.pingable|string, i.ping_latency_expected|string, i.ping|string,
-            i.web_access|string, i.FLIR_discover|string, i.video_setting|string, i.focus|string,
-            i.clean_display|string, i.picture_quality|string, i.PTZ_function|string, i.PTZ_privacy|string,
-            i.washer|string, i.preset|string, i.recording|string, i.webcam_position|string,
-            i.firmware_version|string, i.record_diagnostics|string, i.SIAT_pass|string
-        ]) }}</li>
+          <td>{{ i.test_id }}</td> 
+          <td>{{ i.asset_id|string }}</td>
+          <td>{{ i.test_date }}</td>
+          <td>{{ i.pingable|string }}</td>
+          <td>{{ i.ping_latency_expected|string }}</td>
+          <td>{{ i.ping|string }}</td>
+          <td>{{ i.web_access|string }}</td>
+          <td>{{ i.FLIR_discover|string }}</td>
+          <td>{{ i.video_setting|string }}</td>
+          <td>{{ i.focus|string }}</td>
+          <td>{{ i.clean_display|string }}</td>
+          <td>{{ i.picture_quality|string }}</td>
+          <td>{{ i.PTZ_function|string }}</td>
+          <td>{{ i.PTZ_privacy|string }}</td>
+          <td>{{ i.washer|string }}</td>
+          <td>{{ i.preset|string }}</td>
+          <td>{{ i.recording|string }}</td>
+          <td>{{ i.webcam_position|string }}</td>
+          <td>{{ i.firmware_version|string }}</td>
+          <td>{{ i.record_diagnostics|string }}</td>
+          <td>{{ i.SIAT_pass|string }}</td>
           {% endfor %}
-        </ul>
+          </tr>
+          </table>
      </main>      
    </body>
 </html>
