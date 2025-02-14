@@ -14,19 +14,23 @@
           <h1 class="display-6 fw-bold text-center">Devices</h1>
         <ul>
           {% for i in template_devices %}
-          <li>{{i.id|string +', ' + i.description +', ' + i.type +', '
-            + i.latitude|string +', ' + i.longitude|string +', ' + i.project_number|string}}</li>
+          <li>{{ ", ".join([
+            i.id|string, i.description, i.type,
+            i.latitude|string, i.longitude|string, i.project_number|string
+        ]) }}</li>
           {% endfor %}
         </ul>
         <h1 class="display-6 fw-bold text-center">CCTV SIAT</h1>
         <ul>
           {% for i in template_cctv_siat %}
-          <li>{{i.test_id +', ' + i.asset_id|string +', ' + i.test_date +
-            ', ' + i.pingable +', ' + i.ping_latency_expected +', ' + i.ping|string + ', '
-            + i.web_access +',' + i.FLIR_discover +',' + i.video_setting +',' + i.focus +', '
-            + i.clean_display +',' + i.picture_quality +',' + i.PTZ_function +',' + i.PTZ_privacy +', '
-            + i.washer +',' + i.preset +',' + i.recording +',' + i.webcam_position +
-            ', ' + i.firmware_version +', ' + i.record_diagnostics +', ' + i.SIAT_pass}}</li>
+          <li>{{ ", ".join([
+            i.test_id, i.asset_id|string, i.test_date,
+            i.pingable|string, i.ping_latency_expected|string, i.ping|string,
+            i.web_access|string, i.FLIR_discover|string, i.video_setting|string, i.focus|string,
+            i.clean_display|string, i.picture_quality|string, i.PTZ_function|string, i.PTZ_privacy|string,
+            i.washer|string, i.preset|string, i.recording|string, i.webcam_position|string,
+            i.firmware_version|string, i.record_diagnostics|string, i.SIAT_pass|string
+        ]) }}</li>
           {% endfor %}
         </ul>
      </main>      
