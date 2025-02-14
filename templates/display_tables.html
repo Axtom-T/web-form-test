@@ -11,7 +11,7 @@
             <h1 class="display-6 fw-bold">Data List</h1>
             <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
           </div>
-          <h1 class="display-6 fw-bold text-center">Devices</h1>
+          <h1 class="display-6 fw-bold text-left">Devices</h1>
         <ul>
           {% for i in template_devices %}
           <li>{{ ", ".join([
@@ -20,7 +20,11 @@
         ]) }}</li>
           {% endfor %}
         </ul>
-        <h1 class="display-6 fw-bold text-center">CCTV SIAT</h1>
+        <h1 class="display-6 fw-bold text-left">CCTV SIAT</h1>
+        <p>Test ID, Asset ID, Test Date, Pingable, Ping Latecy Expected, Ping (ms), Web Access, FLIR Discoverable, 
+          Video Settings, Focus, Clean Display, Picture Quality, PTZ Function, PTZ Privacy, Washer, Preset, Recording, 
+          Webcam Position, Firmware Version, Record Diagnostics, SIAT Pass
+        </p>
         <ul>
           {% for i in template_cctv_siat %}
           <li>{{ ", ".join([
