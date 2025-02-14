@@ -1,4 +1,4 @@
-#TODO: fix write to db functionality - id auto_incrementing
+#TODO:
 # implement actual routing according to design
 #display db elements with CSS
 import os
@@ -180,7 +180,7 @@ def add_record_CCTV_SIAT():
     try:
         asset_id = session.get('device')
         test_date = stringdate()
-        test_id = asset_id + test_date
+        test_id = asset_id + '-' + test_date
         pingable = request.form.get('pingable')
         ping_latency_expected = request.form.get('ping_latency_expected')
         ping = request.form.get('ping')
