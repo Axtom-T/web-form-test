@@ -1,0 +1,77 @@
+<!doctype html>
+<head>
+    <title>MRWA Test Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+</head>
+<html>
+   <body>
+     <main>
+        <div class="px-4 py-3 my-2 text-center">
+            <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/MRWA JPG.JPG') }}" alt="Main Roads Logo" width="681" height="172"/>
+            <h1 class="display-6 fw-bold">Data List</h1>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
+          </div>
+          <h1 class="display-6 fw-bold text-left">Devices</h1>
+        <ul>
+          {% for i in template_devices %}
+          <li>{{ ", ".join([
+            i.id|string, i.description, i.type,
+            i.latitude|string, i.longitude|string, i.project_number|string
+        ]) }}</li>
+          {% endfor %}
+        </ul>
+        <h1 class="display-6 fw-bold text-left">CCTV SIAT</h1>
+        <div style="overflow-x: auto;">
+        <table class="table-hover">
+          <tr>
+            <th>Test ID</th>
+            <th>Asset ID</th>
+            <th>Test Date</th>
+            <th>Pingable</th>
+            <th>Ping Latecy Expected</th>
+            <th>Ping (ms)</th>
+            <th>FLIR Discoverable</th>
+            <th>Video Settings</th>
+            <th>Focus</th>
+            <th>Clean Display</th>
+            <th>Picture Quality</th>
+            <th>PTZ Function</th>
+            <th>PTZ Privacy</th>
+            <th>Washer</th>
+            <th>Preset</th>
+            <th>Recording</th>
+            <th>Webcam Position</th>
+            <th>Firmware Version</th>
+            <th>Record Diagnostics</th>
+            <th>SIAT Pass</th>
+          </tr>
+          {% for i in template_cctv_siat %}
+          <tr>
+          <td>{{ i.test_id }}</td> 
+          <td>{{ i.asset_id|string }}</td>
+          <td>{{ i.test_date }}</td>
+          <td>{{ i.pingable|string }}</td>
+          <td>{{ i.ping_latency_expected|string }}</td>
+          <td>{{ i.ping|string }}</td>
+          <td>{{ i.web_access|string }}</td>
+          <td>{{ i.FLIR_discover|string }}</td>
+          <td>{{ i.video_setting|string }}</td>
+          <td>{{ i.focus|string }}</td>
+          <td>{{ i.clean_display|string }}</td>
+          <td>{{ i.picture_quality|string }}</td>
+          <td>{{ i.PTZ_function|string }}</td>
+          <td>{{ i.PTZ_privacy|string }}</td>
+          <td>{{ i.washer|string }}</td>
+          <td>{{ i.preset|string }}</td>
+          <td>{{ i.recording|string }}</td>
+          <td>{{ i.webcam_position|string }}</td>
+          <td>{{ i.firmware_version|string }}</td>
+          <td>{{ i.record_diagnostics|string }}</td>
+          <td>{{ i.SIAT_pass|string }}</td>
+        </tr>
+          {% endfor %}
+          </table>
+        </div>
+     </main>      
+   </body>
+</html>
