@@ -44,8 +44,8 @@
             <th>Record Diagnostics</th>
             <th>SIAT Pass</th>
           </tr>
-          <tr>
           {% for i in template_cctv_siat %}
+          <tr>
           <td>{{ i.test_id }}</td> 
           <td>{{ i.asset_id|string }}</td>
           <td>{{ i.test_date }}</td>
@@ -67,8 +67,8 @@
           <td>{{ i.firmware_version|string }}</td>
           <td>{{ i.record_diagnostics|string }}</td>
           <td>{{ i.SIAT_pass|string }}</td>
+        </tr>
           {% endfor %}
-          </tr>
           </table>
      </main>      
    </body>
