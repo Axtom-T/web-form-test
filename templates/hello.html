@@ -6,9 +6,9 @@
 <html>
    <body>
      <main>
-        <div class="d-block mb-4 position-absolute top-0 end-0 me-3 mt-3">
+        <div class="d-flex flex-row-reverse align-items-center position-absolute top-0 end-0 me-3 mt-3 gap-2">
             <img src="{{ url_for('static', filename='images/MRWA JPG.JPG') }}" alt="Main Roads Logo" width="170" height="43"/>
-            <p>User {{template_name}}</p>
+            <p class="mb-0">User {{template_name}}</p>
             <a href="{{ url_for('index') }}" class="btn btn-primary btn-sm">Logout</a>
           </div>
           <form method="post" action="{{url_for('menu')}}">
