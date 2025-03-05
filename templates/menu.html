@@ -6,12 +6,11 @@
 <html>
    <body>
      <main>
-        <div class="px-4 py-3 my-2 text-center">
-            <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/MRWA JPG.JPG') }}" alt="Main Roads Logo" width="681" height="172"/>
-            <!-- <img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-            <h1 class="display-6 fw-bold">User: {{template_user}}</h1>
-            <h1 class="display-6 fw-bold">Project Name: {{template_project}}</h1>
-            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
+        <div class="d-flex flex-row align-items-center position-absolute top-0 end-0 me-3 mt-3 gap-3">
+            <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/MRWA JPG.JPG') }}" alt="Main Roads Logo" width="170" height="43"/>
+            <p class="mb-0">User: {{template_user}}</p>
+            <p class="mb-0">Project Name: {{template_project}}</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-sm">Logout</a>
           </div>
           <form method="post">
             <div class="col-md-6 mx-auto text-center">
